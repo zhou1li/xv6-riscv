@@ -2081,6 +2081,30 @@ forktest(char *s)
 }
 
 void
+sbrk1(char *s)
+{
+  char *a;
+  int i,j;
+  for(i = 0; i < 0x5; i++)
+  {
+    for(j = 0; j < 0x7FFFFFFF; j++)
+    {}
+    printf("before sbrk:i=0x%x\n", i);
+  }
+  a = sbrk(1);
+  printf("sbrk: 0x%p\n", a);
+  a = sbrk(4096);
+  printf("sbrk: 0x%p\n", a);
+  for(i = 0; i < 0x5; i++)
+  {
+    for(j = 0; j < 0x7FFFFFFF; j++)
+    {}
+    printf("before sbrk:i=0x%x\n", i);
+  }
+  exit(0);
+}
+
+void
 sbrkbasic(char *s)
 {
   enum { TOOMUCH=1024*1024*1024};
@@ -2854,6 +2878,7 @@ main(int argc, char *argv[])
     {bigwrite, "bigwrite"},
     {bsstest, "bsstest"},
     {sbrkbasic, "sbrkbasic"},
+    {sbrk1, "sbrk1"},
     {sbrkmuch, "sbrkmuch"},
     {kernmem, "kernmem"},
     {sbrkfail, "sbrkfail"},
