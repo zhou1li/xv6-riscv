@@ -2080,6 +2080,17 @@ forktest(char *s)
   }
 }
 
+struct usyscall {
+  int pid;
+};
+
+void
+usyscalltest(char *s)
+{
+  struct usyscall *p = (struct usyscall *)USYSCALL;
+  printf("upid:%d, kpid:%d\n", p->pid, getpid());
+}
+
 void
 sbrk1(char *s)
 {
@@ -2905,6 +2916,7 @@ main(int argc, char *argv[])
     {dirfile, "dirfile"},
     {iref, "iref"},
     {forktest, "forktest"},
+    {usyscalltest, "usyscalltest"},
     {bigdir, "bigdir"}, // slow
     { 0, 0},
   };
